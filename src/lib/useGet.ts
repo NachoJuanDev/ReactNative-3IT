@@ -1,9 +1,16 @@
 import {useCallback, useEffect, useState} from 'react';
 
-import {fetchValues, TValue} from '@/lib/values/values';
+import {TRecord, TRecordResponse} from '@/lib/types';
 
-function useValues(key: string, mode: string) {
-  const [data, setData] = useState<TValue[]>([]);
+function useGet<T>(
+  fetchMethod: (params: T) => Promise<{
+    data?: TRecordResponse;
+    error?: string | undefined;
+    code: number;
+  }>,
+  params: T,
+) {
+  const [data, setData] = useState<TRecord[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
@@ -15,7 +22,7 @@ function useValues(key: string, mode: string) {
       } else {
         setIsLoading(true);
       }
-      const result = await fetchValues(key, mode);
+      const result = await fetchMethod(params);
 
       if (result.error) {
         setError(result.error);
@@ -29,14 +36,13 @@ function useValues(key: string, mode: string) {
         setIsLoading(false);
       }
     },
-    [key, mode],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fetchMethod, ...Object.values(params as {[key: string]: string})],
   );
 
   useEffect(() => {
-    if (key) {
-      fetch();
-    }
-  }, [fetch, key]);
+    fetch();
+  }, [fetch]);
 
   return {
     data,
@@ -47,4 +53,4 @@ function useValues(key: string, mode: string) {
   };
 }
 
-export default useValues;
+export default useGet;

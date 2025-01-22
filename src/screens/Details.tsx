@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
-import useDetails from '@/lib/details/useDetails';
+import {fetchDetails} from '@/lib/api';
+import useGet from '@/lib/useGet';
 import {TDetailsScreenProps} from '@/navigation/MainNavigator';
 import React, {ReactNode} from 'react';
 import {
@@ -40,7 +41,7 @@ function Details(props: TDetailsScreenProps) {
     isLoading,
     onRefresh,
     isRefreshing,
-  } = useDetails(key, mode);
+  } = useGet<{key: string; mode: string}>(fetchDetails, {key, mode});
 
   if (isLoading) {
     return (
@@ -59,8 +60,6 @@ function Details(props: TDetailsScreenProps) {
       </Base>
     );
   }
-
-  console.log(details);
 
   const lastDetail = details[0];
 
@@ -113,8 +112,6 @@ function Details(props: TDetailsScreenProps) {
               </Text>
             </View>
           </View>
-
-
         </View>
       </ScrollView>
     </Base>
