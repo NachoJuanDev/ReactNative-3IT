@@ -11,6 +11,7 @@ module.exports = {
           '@/components': './src/components',
           '@/icons': './src/assets/icons',
           '@/lib': './src/lib',
+          '@/env': './env.json',
         },
       },
     ],
