@@ -1,3 +1,4 @@
+import React from 'react';
 import {useColorScheme} from 'nativewind';
 import {Text, TouchableOpacity, Image} from 'react-native';
 
@@ -8,17 +9,18 @@ type TIndicatorRowProps = {
   key: string;
   label: string;
   unit: string;
+  goToValues: () => void;
 };
 
 function IndicatorRow(props: TIndicatorRowProps) {
-  const {index, label, unit} = props;
+  const {index, label, unit, goToValues} = props;
 
   const {colorScheme} = useColorScheme();
   const isDarkMode = colorScheme === 'dark';
 
   return (
     <Row index={index}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={goToValues}>
         <Text className="font-medium text-lg dark:text-gray-100 text-gray-950">
           {label}
         </Text>

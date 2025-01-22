@@ -1,3 +1,10 @@
+export type TIndicatorConfig = {
+  key: string;
+  label: string;
+  type: string;
+  unit: string;
+};
+
 const indicators = [
   {
     key: 'dolar',

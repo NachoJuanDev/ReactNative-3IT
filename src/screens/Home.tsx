@@ -3,9 +3,15 @@ import {View, ScrollView} from 'react-native';
 
 import {THomeScreenProps} from '@/navigation/MainNavigator';
 import IndicatorRow from '@/components/IndicatorRow';
+import indicators, {TIndicatorConfig} from '@/lib/indicators';
 import Header from '@/components/Header';
 
-function HomeScreen(_props: THomeScreenProps) {
+function HomeScreen(props: THomeScreenProps) {
+  const {navigate} = props.navigation;
+
+  const goToValues = (params: TIndicatorConfig) => () =>
+    navigate('Values', params);
+
   return (
     <View className="flex-1 dark:bg-gray-900 bg-white">
       <ScrollView>
@@ -16,6 +22,7 @@ function HomeScreen(_props: THomeScreenProps) {
             key={indicator.key}
             label={indicator.label}
             unit={indicator.unit}
+            goToValues={goToValues(indicator)}
           />
         ))}
       </ScrollView>
