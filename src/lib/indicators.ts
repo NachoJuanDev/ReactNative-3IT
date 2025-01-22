@@ -1,7 +1,7 @@
 export type TIndicatorConfig = {
   key: string;
   label: string;
-  type: string;
+  mode: string;
   unit: string;
 };
 
@@ -9,31 +9,31 @@ const indicators = [
   {
     key: 'dolar',
     label: 'Dólar',
-    type: 'day',
+    mode: 'lastDays',
     unit: 'Pesos',
   },
   {
     key: 'euro',
     label: 'Euro',
-    type: 'day',
+    mode: 'lastDays',
     unit: 'Pesos',
   },
   {
     key: 'ipc',
     label: 'IPC',
-    type: 'year',
+    mode: 'thisYear',
     unit: 'Porcentaje',
   },
   {
     key: 'uf',
     label: 'UF',
-    type: 'day',
+    mode: 'lastDays',
     unit: 'Pesos',
   },
   {
     key: 'utm',
     label: 'UTM',
-    type: 'year',
+    mode: 'thisYear',
     unit: 'Pesos',
   },
 ];
