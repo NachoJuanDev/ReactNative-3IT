@@ -12,6 +12,9 @@ function HomeScreen(props: THomeScreenProps) {
   const goToValues = (params: TIndicatorConfig) => () =>
     navigate('Values', params);
 
+  const goToDetails = (params: TIndicatorConfig) => () =>
+    navigate('Details', params);
+
   return (
     <View className="flex-1 dark:bg-gray-900 bg-white">
       <ScrollView>
@@ -23,6 +26,7 @@ function HomeScreen(props: THomeScreenProps) {
             label={indicator.label}
             unit={indicator.unit}
             goToValues={goToValues(indicator)}
+            goToDetails={goToDetails(indicator)}
           />
         ))}
       </ScrollView>

@@ -10,10 +10,11 @@ type TIndicatorRowProps = {
   label: string;
   unit: string;
   goToValues: () => void;
+  goToDetails: () => void;
 };
 
 function IndicatorRow(props: TIndicatorRowProps) {
-  const {index, label, unit, goToValues} = props;
+  const {index, label, unit, goToValues, goToDetails} = props;
 
   const {colorScheme} = useColorScheme();
   const isDarkMode = colorScheme === 'dark';
@@ -26,7 +27,7 @@ function IndicatorRow(props: TIndicatorRowProps) {
         </Text>
         <Text className="text-sm dark:text-gray-100 text-gray-950">{unit}</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={goToDetails}>
         {isDarkMode ? (
           <Image
             className="h-6 w-6"

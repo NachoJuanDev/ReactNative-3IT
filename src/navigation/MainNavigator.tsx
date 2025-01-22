@@ -5,13 +5,15 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 
+import { TIndicatorConfig } from '@/lib/indicators';
 import HomeScreen from '@/screens/Home';
 import ValuesScreen from '@/screens/Values';
-import { TIndicatorConfig } from '@/lib/indicators';
+import DetailsScreen from '@/screens/Details';
 
 export type MainStackParamList = {
   Home: undefined;
   Values: TIndicatorConfig;
+  Details: TIndicatorConfig;
 };
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -21,6 +23,7 @@ function MainNavigator() {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Values" component={ValuesScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
     </Stack.Navigator>
   );
 }
@@ -36,5 +39,11 @@ export type THomeScreenProps = NativeStackScreenProps<
 export type TValuesScreenProps = NativeStackScreenProps<
   MainStackParamList,
   'Values',
+  'HomeStack'
+>;
+
+export type TDetailsScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  'Details',
   'HomeStack'
 >;
