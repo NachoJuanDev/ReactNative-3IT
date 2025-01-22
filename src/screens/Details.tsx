@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import {fetchDetails} from '@/lib/api';
 import useGet from '@/lib/useGet';
 import {TDetailsScreenProps} from '@/navigation/MainNavigator';
+import {useColorScheme} from 'nativewind';
 import React, {ReactNode} from 'react';
 import {
   ScrollView,
@@ -9,7 +10,9 @@ import {
   ActivityIndicator,
   RefreshControl,
   Text,
+  Dimensions,
 } from 'react-native';
+import {LineChart} from 'react-native-gifted-charts';
 
 const formatValue = (value: string, unit: string) => {
   if (unit === 'Pesos') {
@@ -34,6 +37,9 @@ const Base = ({label, children}: {label: string; children: ReactNode}) => {
 
 function Details(props: TDetailsScreenProps) {
   const {key, label, mode, unit} = props.route.params;
+
+  const {colorScheme} = useColorScheme();
+  const isDarkMode = colorScheme === 'dark';
 
   const {
     data: details,
@@ -62,6 +68,8 @@ function Details(props: TDetailsScreenProps) {
   }
 
   const lastDetail = details[0];
+
+  const data = details.length < 10 ? details : details.slice(0, 10);
 
   return (
     <Base label={label}>
@@ -112,6 +120,36 @@ function Details(props: TDetailsScreenProps) {
               </Text>
             </View>
           </View>
+        </View>
+
+        <View className="flex-1 p-4">
+          <LineChart
+            data={data.map(detail => ({
+              value: Number(detail.Valor.replace('.', '').replace(',', '.')),
+              label: detail.Fecha.split('-')
+                .slice(1)
+                .reverse()
+                .join('/')
+                .replace('0', ''),
+            }))}
+            hideDataPoints
+            hideRules
+            width={Dimensions.get('window').width * 0.7}
+            spacing={(Dimensions.get('window').width * 0.7) / data.length}
+            yAxisColor="#0BA5A4"
+            xAxisColor="#0BA5A4"
+            color="#0BA5A4"
+            // eslint-disable-next-line react-native/no-inline-styles
+            xAxisLabelTextStyle={{
+              fontSize: 8,
+              color: isDarkMode ? 'white' : 'black',
+            }}
+            // eslint-disable-next-line react-native/no-inline-styles
+            yAxisTextStyle={{
+              fontSize: 10,
+              color: isDarkMode ? 'white' : 'black',
+            }}
+          />
         </View>
       </ScrollView>
     </Base>

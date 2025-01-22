@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 import ValueRow from '@/components/ValueRow';
-import {fetchDetails} from '@/lib/api';
+import {fetchValues} from '@/lib/api';
 import useGet from '@/lib/useGet';
 import {TValuesScreenProps} from '@/navigation/MainNavigator';
 import React, {ReactNode} from 'react';
@@ -42,7 +42,7 @@ function Values(props: TValuesScreenProps) {
     isLoading,
     onRefresh,
     isRefreshing,
-  } = useGet<{key: string; mode: string}>(fetchDetails, {key, mode});
+  } = useGet<{key: string; mode: string}>(fetchValues, {key, mode});
 
   if (isLoading) {
     return (
