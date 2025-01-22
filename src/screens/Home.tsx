@@ -1,17 +1,15 @@
 import React from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import {View, ScrollView} from 'react-native';
 
 import {THomeScreenProps} from '@/navigation/MainNavigator';
 import IndicatorRow from '@/components/IndicatorRow';
-import indicators from '@/lib/indicators';
+import Header from '@/components/Header';
 
 function HomeScreen(_props: THomeScreenProps) {
   return (
     <View className="flex-1 dark:bg-gray-900 bg-white">
       <ScrollView>
-        <Text className="m-6 font-semibold text-2xl dark:text-white text-gray-950">
-          Indicadores
-        </Text>
+        <Header title="Indicadores" />
         {indicators.map((indicator, index) => (
           <IndicatorRow
             index={index}
