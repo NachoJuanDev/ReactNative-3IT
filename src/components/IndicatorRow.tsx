@@ -1,6 +1,7 @@
 import {useColorScheme} from 'nativewind';
-import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {Text, TouchableOpacity, Image} from 'react-native';
+
+import Row from '@/components/Row';
 
 type TIndicatorRowProps = {
   index: number;
@@ -12,14 +13,11 @@ type TIndicatorRowProps = {
 function IndicatorRow(props: TIndicatorRowProps) {
   const {index, label, unit} = props;
 
-  const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme.colorScheme === 'dark';
+  const {colorScheme} = useColorScheme();
+  const isDarkMode = colorScheme === 'dark';
 
   return (
-    <View
-      className={`flex-row justify-between items-center py-2 px-4 border-b dark:border-gray-500 border-gray-700 ${
-        !index && 'border-t'
-      }`}>
+    <Row index={index}>
       <TouchableOpacity>
         <Text className="font-medium text-lg dark:text-gray-100 text-gray-950">
           {label}
@@ -39,7 +37,7 @@ function IndicatorRow(props: TIndicatorRowProps) {
           />
         )}
       </TouchableOpacity>
-    </View>
+    </Row>
   );
 }
 
